@@ -28,23 +28,27 @@ export class VehicleService {
 
   getInfo() {
     let vehicleStatus: VehicleStatuses = VehicleStatuses.UNKNOWN;
-    this.httpClient.get<VehicleInfo>("https://api.particle.io/v1/devices/e00fce6889688c900d20511d/vehicleStatus?access_token=458dbf3b5a6b40da88c8a3fa6bf05804cb145522").subscribe(
+    const request = this.httpClient.get<VehicleInfo>("https://api.particle.io/v1/devices/e00fce6889688c900d20511d/vehicleStatus?access_token=458dbf3b5a6b40da88c8a3fa6bf05804cb145522");
+    request.subscribe(
       result => {
-        console.log(result.result);
+        console.log("Top of function: " + result.result);
         switch (result.result) {
           case result.result = 0:
-            vehicleStatus = VehicleStatuses.STATIONARY
-            break
+            vehicleStatus = VehicleStatuses.STATIONARY;
+            console.log(vehicleStatus);
+            break;
           case result.result = 1:
-            vehicleStatus = VehicleStatuses.MOVING
-            break
+            vehicleStatus = VehicleStatuses.MOVING;
+            console.log(vehicleStatus);
+            break;
           case result.result = 2:
-            vehicleStatus = VehicleStatuses.ENCOUNTERED_OBSTACLE
+            vehicleStatus = VehicleStatuses.ENCOUNTERED_OBSTACLE;
+            console.log(vehicleStatus);
             break;
         }
       }
     );
-
+    console.log("Bottom of function: " + vehicleStatus)
     return vehicleStatus;
   }
 }
