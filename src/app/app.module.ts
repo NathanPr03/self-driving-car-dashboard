@@ -6,17 +6,21 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { VehicleStatusComponent } from './components/vehicle-status/vehicle-status.component';
 import { VehicleIdComponent } from './components/vehicle-id/vehicle-id.component';
 import { HttpClientModule} from "@angular/common/http";
+import { MapsComponent } from './components/maps/maps.component';
+import { GoogleMapsModule } from "@angular/google-maps";
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
     VehicleStatusComponent,
-    VehicleIdComponent
+    VehicleIdComponent,
+    MapsComponent
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    GoogleMapsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
