@@ -1,6 +1,8 @@
 <google-map height="500px"
             width="1275px"
-            [center]="{lat:55.933150041161134, lng:-3.2139476806949494}"
-            [zoom]="12">
-  <map-marker></map-marker>
+            [center]="center"
+            [zoom]="zoom">
+  <map-marker *ngFor="let markerPosition of markerPositions"
+              [position]="markerPosition"
+              [options]="markerOptions"></map-marker>
 </google-map>
