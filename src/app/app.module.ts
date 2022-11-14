@@ -8,6 +8,7 @@ import { VehicleIdComponent } from './components/vehicle-id/vehicle-id.component
 import { HttpClientModule} from "@angular/common/http";
 import { MapsComponent } from './components/maps/maps.component';
 import { GoogleMapsModule } from "@angular/google-maps";
+import { FormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { GoogleMapsModule } from "@angular/google-maps";
   imports: [
     BrowserModule,
     HttpClientModule,
-    GoogleMapsModule
+    GoogleMapsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

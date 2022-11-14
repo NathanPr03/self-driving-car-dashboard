@@ -13,7 +13,6 @@ export class MapsComponent implements OnInit {
   markerPositions: google.maps.LatLngLiteral[] = [];
 
   addMarker() {
-    // @ts-ignore
     this.markerPositions.push({
       lat:55.933150041161134,
       lng:-3.2139476806949494

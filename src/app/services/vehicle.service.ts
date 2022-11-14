@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
+import { Subject } from "rxjs";
 
 export enum VehicleStatuses {
   STATIONARY = 0,
@@ -23,32 +24,30 @@ export type VehicleInfo = {
   providedIn: 'root'
 })
 export class VehicleService {
+  private readonly vehicleStatus = new Subject<VehicleStatuses>();
+  readonly vehicleStatusStatus = this.vehicleStatus.asObservable();
 
   constructor(private httpClient: HttpClient) { }
 
-  getInfo() {
-    let vehicleStatus: VehicleStatuses = VehicleStatuses.UNKNOWN;
+  getInfo(): void {
     const request = this.httpClient.get<VehicleInfo>("https://api.particle.io/v1/devices/e00fce6889688c900d20511d/vehicleStatus?access_token=458dbf3b5a6b40da88c8a3fa6bf05804cb145522");
     request.subscribe(
       result => {
         console.log("Top of function: " + result.result);
         switch (result.result) {
           case result.result = 0:
-            vehicleStatus = VehicleStatuses.STATIONARY;
-            console.log(vehicleStatus);
+            this.vehicleStatus.next(VehicleStatuses.STATIONARY);
             break;
           case result.result = 1:
-            vehicleStatus = VehicleStatuses.MOVING;
-            console.log(vehicleStatus);
+            this.vehicleStatus.next(VehicleStatuses.MOVING);
             break;
           case result.result = 2:
-            vehicleStatus = VehicleStatuses.ENCOUNTERED_OBSTACLE;
-            console.log(vehicleStatus);
+            this.vehicleStatus.next(VehicleStatuses.ENCOUNTERED_OBSTACLE);
             break;
         }
+      }, error => {
+        this.vehicleStatus.next(VehicleStatuses.UNKNOWN)
       }
     );
-    console.log("Bottom of function: " + vehicleStatus)
-    return vehicleStatus;
   }
 }
