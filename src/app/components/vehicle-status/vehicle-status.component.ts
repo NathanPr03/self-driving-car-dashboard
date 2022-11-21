@@ -9,7 +9,7 @@ import { interval } from "rxjs";
 })
 export class VehicleStatusComponent implements OnInit {
 
-  vehicleStatus: VehicleStatuses = VehicleStatuses.UNKNOWN;
+  vehicleStatus: string = VehicleStatuses[VehicleStatuses.UNKNOWN];
 
   source = interval(3500);
   subscription = this.source.subscribe(
@@ -22,8 +22,7 @@ export class VehicleStatusComponent implements OnInit {
   ngOnInit(): void {
     this.vehicleService.getInfo();
     this.vehicleService.vehicleStatusStatus.subscribe(isVehicleStatusLoaded => {
-      console.log(JSON.stringify(isVehicleStatusLoaded));
-      this.vehicleStatus = isVehicleStatusLoaded;
+      this.vehicleStatus = VehicleStatuses[isVehicleStatusLoaded];
     });
   }
 }
